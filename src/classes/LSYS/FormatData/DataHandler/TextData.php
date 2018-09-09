@@ -1,0 +1,70 @@
+<?php
+/**
+ * lsys utils
+ * @author     Lonely <shan.liu@msn.com>
+ * @copyright  (c) 2017 Lonely <shan.liu@msn.com>
+ * @license    http://www.apache.org/licenses/LICENSE-2.0
+ */
+namespace LSYS\FormatData\DataHandler;
+use LSYS\FormatData\DataHandler;
+/**
+ *  普通字符常用格式化处理
+ */
+class TextData extends DataHandler{
+	/**
+	 * 部分文本显示
+	 * @var integer
+	 */
+	const FORMAT_TEXT_HIDDEN=1;
+	/**
+	 * 数据为手机号,隐藏部分字符
+	 * @var integer
+	 */
+	const FORMAT_MOBILE_HIDDEN=2;
+	/**
+	 * 数据为邮箱,隐藏部分字符
+	 * @var integer
+	 */
+	const FORMAT_EMAIL_HIDDEN=3;
+	/**
+	 * {@inheritDoc}
+	 * @see \LSYS\FormatData\DataHandler::format()
+	 */
+	public function format($format,$data,$args=null){
+	    switch ($format){
+			case self::FORMAT_TEXT_HIDDEN:
+			    if ($args==null)$args=6;
+			    return $this->_hide_text($data,$args);
+			case self::FORMAT_MOBILE_HIDDEN:
+			    if ($args==null)$args=4;
+			    return $this->_hide_mobile($data,$args);
+			case self::FORMAT_EMAIL_HIDDEN:
+				return $this->_hide_email($data);
+		}
+	}
+	protected function _hide_text($text,$show){
+		if ($show<=1) return '*';
+		$s=intval($show/3);
+		return substr($text, 0,$s+$show%2).str_pad("", $s,"*").($s?substr($text, -$s,strlen($text)):'');
+	}
+	protected function _hide_mobile($text,$show){
+		$start=ceil((11-$show)/2);
+		return substr_replace($text,str_pad("", $show,"*"),$start,$show);
+	}
+	protected function _hide_email($email){
+	    return self::js_email($email);
+	}
+	public static function js_email($email){
+		$text = str_replace('@', '[at]', $email);
+		$email = explode("@", $email);
+		$output = '<script type="text/javascript">';
+		$output .= '(function() {';
+		$output .= 'var user = "'.$email[0].'";';
+		$output .= 'var at = "@";';
+		$output .= 'var server = "'.$email[1].'";';
+		$output .= "document.write('<a href=\"' + 'mail' + 'to:' + user + at + server + '\">$text</a>');";
+		$output .= '})();';
+		$output .= '</script>';
+		return $output;
+	}
+}
