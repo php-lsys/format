@@ -51,7 +51,7 @@ class MoneyData extends DataHandler{
 	public function format($format,$data,$args=null){
 	    switch ($format){
 	        case self::FORMAT_CHINESE:
-			    return self::to_chinese($data);
+			    return self::toChinese($data);
 			default:
 			    $prefix=$args?$args:self::$prefix;
 				if (isset(self::$_prefix[$prefix]))$prefix=self::$_prefix[$prefix];
@@ -65,7 +65,7 @@ class MoneyData extends DataHandler{
 	 * @param number $money
 	 * @return string
 	 */
-	public static function to_chinese($money){
+	public static function toChinese($money){
 		$c1 = "零壹贰叁肆伍陆柒捌玖";
 		$c2 = "分角元拾佰仟万拾佰仟亿";
 		//精确到分后面就不要了，所以只留两个小数位

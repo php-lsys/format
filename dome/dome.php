@@ -5,7 +5,7 @@ use LSYS\FormatData\DataHandler\NumData;
 use LSYS\FormatData\DataHandler\TextData;
 include_once __DIR__."/../vendor/autoload.php";
 
-$format=\LSYS\FormatData\DI::get()->format_data();
+$format=\LSYS\FormatData\DI::get()->formatData();
 
 var_dump($format->format(DateTimeData::class,time()-1000,DateTimeData::FORMAT_LESS));
 

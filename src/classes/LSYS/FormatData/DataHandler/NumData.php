@@ -35,10 +35,10 @@ class NumData extends DataHandler{
 			case self::FORMAT_BYTES:
 				return $this->_bytes($data);
 			case self::FORMAT_IP:
-				return $this->_int_to_ip($data);
+				return $this->_intToIp($data);
 			case self::FORMAT_NUM:
 			    if ($args==null)$args=2;
-			    return $this->_num_format($data, $args);
+			    return $this->_numFormat($data, $args);
 		}
 	}
 	const ROUND_HALF_UP		= 1;
@@ -128,7 +128,7 @@ class NumData extends DataHandler{
 	 * @return  string
 	 * @since   3.0.2
 	 */
-	protected  function _num_format($number, $places)
+	protected  function _numFormat($number, $places)
 	{
 		$info = localeconv();
 		$decimal   = $info['decimal_point'];
@@ -137,14 +137,14 @@ class NumData extends DataHandler{
 	}
 	protected function _bytes($size)
 	{
-	    return self::format_bytes($size);
+	    return self::formatBytes($size);
 	}
 	/**
 	 * 把字节数转为可视字符串
 	 * @param int $size
 	 * @return string
 	 */
-	public static function format_bytes($size){
+	public static function formatBytes($size){
 		$pi=array(
 			'B','KB','MB','GB','TB'
 		);
@@ -211,7 +211,7 @@ class NumData extends DataHandler{
 	 * @param string $size
 	 * @return number
 	 */
-	public static function to_bytes($size)
+	public static function toBytes($size)
 	{
 	    // Prepare the size
 	    $size = trim( (string) $size);
@@ -233,7 +233,7 @@ class NumData extends DataHandler{
 	 * 整数转IP
 	 * @param int $iIP
 	 */
-	protected function _int_to_ip($iIP){
+	protected function _intToIp($iIP){
 	    return self::intip($iIP);
 	}
 	/**

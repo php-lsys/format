@@ -1,7 +1,7 @@
 <?php
 namespace LSYS\FormatData;
 /**
- * @method \LSYS\FormatData format_data()
+ * @method \LSYS\FormatData formatData()
  */
 class DI extends \LSYS\DI{
     /**
@@ -9,7 +9,7 @@ class DI extends \LSYS\DI{
      */
     public static function get(){
         $di=parent::get();
-        !isset($di->format_data)&&$di->format_data(new \LSYS\DI\SingletonCallback(function (){
+        !isset($di->formatData)&&$di->formatData(new \LSYS\DI\SingletonCallback(function (){
             return new \LSYS\FormatData();
         }));
         return $di;

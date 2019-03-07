@@ -34,27 +34,27 @@ class TextData extends DataHandler{
 	    switch ($format){
 			case self::FORMAT_TEXT_HIDDEN:
 			    if ($args==null)$args=6;
-			    return $this->_hide_text($data,$args);
+			    return $this->_hideText($data,$args);
 			case self::FORMAT_MOBILE_HIDDEN:
 			    if ($args==null)$args=4;
-			    return $this->_hide_mobile($data,$args);
+			    return $this->_hideMobile($data,$args);
 			case self::FORMAT_EMAIL_HIDDEN:
-				return $this->_hide_email($data);
+				return $this->_hideEmail($data);
 		}
 	}
-	protected function _hide_text($text,$show){
+	protected function _hideText($text,$show){
 		if ($show<=1) return '*';
 		$s=intval($show/3);
 		return substr($text, 0,$s+$show%2).str_pad("", $s,"*").($s?substr($text, -$s,strlen($text)):'');
 	}
-	protected function _hide_mobile($text,$show){
+	protected function _hideMobile($text,$show){
 		$start=ceil((11-$show)/2);
 		return substr_replace($text,str_pad("", $show,"*"),$start,$show);
 	}
-	protected function _hide_email($email){
-	    return self::js_email($email);
+	protected function _hideEmail($email){
+	    return self::jsEmail($email);
 	}
-	public static function js_email($email){
+	public static function jsEmail($email){
 		$text = str_replace('@', '[at]', $email);
 		$email = explode("@", $email);
 		$output = '<script type="text/javascript">';

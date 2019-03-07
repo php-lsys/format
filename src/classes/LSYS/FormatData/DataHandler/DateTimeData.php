@@ -43,9 +43,9 @@ class DateTimeData extends DataHandler{
 			case self::FORMAT_MINUTE:
 				return date("Y-m-d H:i",$data);
 			case self::FORMAT_TIME:
-				return $this->_time_show($data);
+				return $this->_timeShow($data);
 			case self::FORMAT_LESS:
-				return $this->_less_show($data);
+				return $this->_lessShow($data);
 			default:
 				return date("Y-m-d H:i:s",$data);
 		}
@@ -61,7 +61,7 @@ class DateTimeData extends DataHandler{
 	 * @param int $time
 	 * @return string
 	 */
-	public static function less_chinese($time){
+	public static function lessChinese($time){
 	    $cTime      =   time();
 	    $dTime      =   $cTime - $time;
 	    $dDay       =   intval(date("z",$cTime)) - intval(date("z",$time));
@@ -92,7 +92,7 @@ class DateTimeData extends DataHandler{
 	 * @param int $time
 	 * @return string
 	 */
-	public static function less_english($time){
+	public static function lessEnglish($time){
 	    $local_timestamp = time();
 	    // Determine the difference in seconds
 	    $offset = abs($local_timestamp - $timestamp);
@@ -187,18 +187,18 @@ class DateTimeData extends DataHandler{
 	        return 'in '.$span;
 	    }
 	}
-	protected function _less_show($time){
+	protected function _lessShow($time){
 	    switch ($this->_language){
 	        case null:
 	        case 'zh_CN':
-	           return self::less_chinese($time);
+	           return self::lessChinese($time);
 	        break;
 	        case 'en_US':
-	            return self::less_english($time);
+	            return self::lessEnglish($time);
 	        break;
 	    }
 	}
-	protected function _time_show($second){
+	protected function _timeShow($second){
 		if ($second<=60)return $second."";
 		elseif($second>=60&&$second<3600){
 			return floor($second/60).":".($second%60)."";
