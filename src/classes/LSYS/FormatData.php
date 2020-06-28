@@ -28,11 +28,11 @@ class FormatData{
 	 * 获得格式化后数据
 	 * @param string $datahandler 数据处理对象
 	 * @param mixed $data 数据
-	 * @param string $show_config
+	 * @param string $format
 	 * @param mixed $args
 	 * @return string
 	 */
-	public function format($datahandler,$data,$format=null,$args=null){
+	public function format(string $datahandler,$data,$format=null,$args=null):?string{
 		assert(is_string($datahandler)&&is_subclass_of($datahandler, DataHandler::class));
 		if (!isset($this->_format[$datahandler])){
 			$this->_format[$datahandler]=new $datahandler($this->_language);

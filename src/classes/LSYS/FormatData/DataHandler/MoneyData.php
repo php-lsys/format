@@ -48,7 +48,7 @@ class MoneyData extends DataHandler{
 	 * {@inheritDoc}
 	 * @see \LSYS\FormatData\DataHandler::format()
 	 */
-	public function format($format,$data,$args=null){
+	public function format($format,$data,$args=null):?string{
 	    switch ($format){
 	        case self::FORMAT_CHINESE:
 			    return self::toChinese($data);
@@ -59,6 +59,7 @@ class MoneyData extends DataHandler{
 				$money=number_format($data, 2);
 			return $prefix.$money;
 		}
+		return null;
 	}
 	/**
 	 * 转大写金额

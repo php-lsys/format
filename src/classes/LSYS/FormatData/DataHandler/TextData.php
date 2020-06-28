@@ -30,7 +30,7 @@ class TextData extends DataHandler{
 	 * {@inheritDoc}
 	 * @see \LSYS\FormatData\DataHandler::format()
 	 */
-	public function format($format,$data,$args=null){
+	public function format($format,$data,$args=null):?string{
 	    switch ($format){
 			case self::FORMAT_TEXT_HIDDEN:
 			    if ($args==null)$args=6;
@@ -41,6 +41,7 @@ class TextData extends DataHandler{
 			case self::FORMAT_EMAIL_HIDDEN:
 				return $this->_hideEmail($data);
 		}
+		return null;
 	}
 	protected function _hideText($text,$show){
 		if ($show<=1) return '*';
@@ -54,7 +55,7 @@ class TextData extends DataHandler{
 	protected function _hideEmail($email){
 	    return self::jsEmail($email);
 	}
-	public static function jsEmail($email){
+	public static function jsEmail(string $email){
 		$text = str_replace('@', '[at]', $email);
 		$email = explode("@", $email);
 		$output = '<script type="text/javascript">';

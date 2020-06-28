@@ -30,7 +30,7 @@ class NumData extends DataHandler{
 	 * {@inheritDoc}
 	 * @see \LSYS\FormatData\DataHandler::format()
 	 */
-	public function format($format,$data,$args=null){
+	public function format($format,$data,$args=null):?string{
 	    switch ($format){
 			case self::FORMAT_BYTES:
 				return $this->_bytes($data);
@@ -40,6 +40,7 @@ class NumData extends DataHandler{
 			    if ($args==null)$args=2;
 			    return $this->_numFormat($data, $args);
 		}
+		return null;
 	}
 	const ROUND_HALF_UP		= 1;
 	const ROUND_HALF_DOWN	= 2;
@@ -54,7 +55,7 @@ class NumData extends DataHandler{
 	 * @param boolean $native Set to false to force use of the userland implementation
 	 * @return float Rounded number
 	 */
-	public static function round($value, $precision = 0, $mode = self::ROUND_HALF_UP, $native = TRUE)
+	public static function round(float $value, int $precision = 0, int $mode = self::ROUND_HALF_UP,bool $native = TRUE)
 	{
 		if (version_compare(PHP_VERSION, '5.3', '>=') AND $native)
 		{

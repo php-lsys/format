@@ -17,5 +17,5 @@ abstract class DataHandler{
 	 * @param string $config
 	 * @param mixed $data
 	 */
-	abstract public function format($format,$data,$args=null);
+	abstract public function format($format,$data,$args=null):?string;
 }

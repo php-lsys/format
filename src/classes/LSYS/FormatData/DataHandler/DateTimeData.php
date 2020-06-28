@@ -35,7 +35,7 @@ class DateTimeData extends DataHandler{
 	 * {@inheritDoc}
 	 * @see \LSYS\FormatData\DataHandler::format()
 	 */
-	public function format($format,$data,$args=null){
+	public function format($format,$data,$args=null):?string{
 	    if(!is_int($data))$data=strtotime($data);
 		switch ($format){
 			case self::FORMAT_DATE:
@@ -49,6 +49,7 @@ class DateTimeData extends DataHandler{
 			default:
 				return date("Y-m-d H:i:s",$data);
 		}
+		return null;
 	}
 	const YEAR   = 31556926;
 	const MONTH  = 2629744;
@@ -61,7 +62,7 @@ class DateTimeData extends DataHandler{
 	 * @param int $time
 	 * @return string
 	 */
-	public static function lessChinese($time){
+	public static function lessChinese(int $time):string{
 	    $cTime      =   time();
 	    $dTime      =   $cTime - $time;
 	    $dDay       =   intval(date("z",$cTime)) - intval(date("z",$time));
@@ -92,7 +93,7 @@ class DateTimeData extends DataHandler{
 	 * @param int $time
 	 * @return string
 	 */
-	public static function lessEnglish($time){
+	public static function lessEnglish(int $timestamp):string {
 	    $local_timestamp = time();
 	    // Determine the difference in seconds
 	    $offset = abs($local_timestamp - $timestamp);
@@ -187,7 +188,7 @@ class DateTimeData extends DataHandler{
 	        return 'in '.$span;
 	    }
 	}
-	protected function _lessShow($time){
+	protected function _lessShow($time):?string{
 	    switch ($this->_language){
 	        case null:
 	        case 'zh_CN':
@@ -197,8 +198,9 @@ class DateTimeData extends DataHandler{
 	            return self::lessEnglish($time);
 	        break;
 	    }
+	    return null;
 	}
-	protected function _timeShow($second){
+	protected function _timeShow($second):string{
 		if ($second<=60)return $second."";
 		elseif($second>=60&&$second<3600){
 			return floor($second/60).":".($second%60)."";
